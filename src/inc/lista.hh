@@ -14,11 +14,12 @@ struct element {
     element(typ zmienna){
         wartosc = new typ(zmienna);
         nastepny = nullptr;}
-    ~element(){delete wartosc;}
+    ~element(){if(wartosc != nullptr) delete wartosc;}
 
     bool operator ==(element porownywany){
         if(this->wartosc == porownywany->wartosc) return true;
         else return false;}
+    //typ& operator*() const{return this->wartosc;}
 
 };
 

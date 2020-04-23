@@ -17,11 +17,12 @@ struct element_2_kier {
         wartosc = new typ(zmienna);
         nastepny = nullptr;
         poprzedni = nullptr;}
-    ~element_2_kier(){delete wartosc;}
+    ~element_2_kier(){if(wartosc !=nullptr) delete wartosc;}
 
     bool operator ==(element_2_kier porownywany){
         if(this->wartosc == porownywany->wartosc) return true;
         else return false;}
+    //typ& operator*() const{return this->wartosc;}
 };
 
 template <typename typ>

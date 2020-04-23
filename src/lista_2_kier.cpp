@@ -8,43 +8,7 @@ lista_2_kier<typ>::lista_2_kier(){
     pierwszy_element = nullptr;
     ostatni_element = nullptr;
 }
-/* 
-template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iteruj(unsigned int iter){
-    if(this->czy_pusta() == false){
-        element_2_kier<typ> *wybrany = this->pierwszy_element;
-        for(unsigned int i=0;i<iter;i++){
-            if (wybrany->nastepny == nullptr){
-                std::cout<<"nie ma takiego elementu"<<std::endl;
-                std::cout<<"zwrocono nullptr"<<std::endl;
-                return nullptr; //w razie przekroczenia zakresu zwraca nullptr
-            }
-            wybrany = wybrany->nastepny;
-        }
-        return wybrany;
-    }
-    std::cout << "lista_2_kier pusta zwrocono nulptr" << std::endl;
-    return nullptr; // w razie pustej listy zwraca nullptr
-}
 
-template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iteruj_od_konca(unsigned int iter){
-    if(this->czy_pusta() == false){
-        element_2_kier<typ> *wybrany = this->ostatni_element;
-        for(unsigned int i=0;i<iter;i++){
-            if (wybrany->poprzedni == nullptr){
-                std::cout<<"nie ma takiego elementu"<<std::endl;
-                std::cout<<"zwrocono nullptr"<<std::endl;
-                return nullptr; //w razie przekroczenia zakresu zwraca nullptr
-            }
-            wybrany = wybrany->poprzedni;
-        }
-        return wybrany;
-    }
-    std::cout << "lista_2_kier pusta zwrocono nulptr" << std::endl;
-    return nullptr; // w razie pustej listy zwraca nullptr
-}
- */
 template<typename typ>
 unsigned int lista_2_kier<typ>::rozmiar(){
     if(this->czy_pusta() == false){

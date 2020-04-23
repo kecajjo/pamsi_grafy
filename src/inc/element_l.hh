@@ -11,11 +11,12 @@ template <typename kraw, typename wierzch> struct wierzcholek_l;
 // musimy znac typ danych jakie przechowuje krawedz i wierzcholek
 template <typename kraw, typename wierzch>
 struct wierzcholek_l{
-    element< wierzcholek_l<kraw, wierzch> > *miejsce_na_liscie; // wskazuje na miejsce na liscie, ktore zajmuje wierzcholek
+    element_2_kier< wierzcholek_l<kraw, wierzch> > *miejsce_na_liscie; // wskazuje na miejsce na liscie, ktore zajmuje wierzcholek
     wierzch *nazwa; // wskaznik na nazwe wierzcholka albo element, ktory zawiera, np. 23, abc, 7.9
     lista_2_kier< krawedz_l<kraw, wierzch>* > *krawedzie; // wskazniki na krawedzie wychodzace z wierzcholka
     wierzcholek_l();
     wierzcholek_l(wierzch nowa_nazwa);
+    //wierzch operator*() const {return this->nazwa;}
 };
 
 // krawedz wykorzystywana w reprezentacji za pomoca listy sasiedztwa
@@ -29,6 +30,7 @@ struct krawedz_l{
     element_2_kier< krawedz_l<kraw, wierzch>* > *krawedzie_wierzcholka[2];
     krawedz_l();
     krawedz_l(kraw nowa_nazwa);
+    //kraw operator*() const{ return this->nazwa;}
 };
 
 template <typename kraw, typename wierzch>
