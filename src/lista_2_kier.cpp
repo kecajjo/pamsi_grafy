@@ -187,110 +187,126 @@ lista_2_kier<typ>::iterator::iterator(lista_2_kier<typ> *moja_lista){
 
 // numeracja od 0 jak w tablicy
 template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::iteruj(unsigned int numer_elem){
+typ lista_2_kier<typ>::iterator::iteruj(unsigned int numer_elem){
     if(this->przypisana_lista != nullptr){
         if(this->przypisana_lista->czy_pusta() == false){
             element_2_kier<typ> *wybrany = this->przypisana_lista->pierwszy();
             for(unsigned int i=0;i<numer_elem;i++){
                 if (wybrany->nastepny == nullptr){
                     std::cout<<"nie ma takiego elementu"<<std::endl;
-                    std::cout<<"zwrocono nullptr"<<std::endl;
-                    return nullptr; //w razie przekroczenia zakresu zwraca nullptr
+                    std::cout<<"zwrocono INT_MIN"<<std::endl;
+                    return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
                 }
                 wybrany = wybrany->nastepny;
             }
-            return wybrany; // jesli lista_2_kier nie bedzie pusta zwroci adres elementu
+            this->aktualny_element = wybrany; // przypisze adres elementu do pola aktualny_element
+            return *(wybrany->wartosc); // jesli lista_2_kier nie bedzie pusta zwroci wartosc elementu
         }
-        std::cout << "lista_2_kier pusta, zwrocono nulptr" << std::endl;
-        return nullptr; // w razie pustej listy zwraca nullptr
+        std::cout << "lista_2_kier pusta, zwrocono INT_MIN" << std::endl;
+        return INT_MIN; // w razie pustej listy zwraca INT_MIN
     }
-    std::cout << "nie przypisano listy, zwrocono nullptr" << std::endl;
-    return nullptr;
+    std::cout << "nie przypisano listy, zwrocono INT_MIN" << std::endl;
+    return INT_MIN;
 }
 
 template<typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::iteruj(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem){
+typ lista_2_kier<typ>::iterator::iteruj(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem){
     element_2_kier<typ> *wybrany;
     wybrany = wskazany_elem;
     for(unsigned int i=0;i<numer_elem;i++){
         if (wybrany->nastepny == nullptr){
             std::cout<<"nie ma takiego elementu"<<std::endl;
-            std::cout<<"zwrocono nullptr"<<std::endl;
-            return nullptr; //w razie przekroczenia zakresu zwraca nullptr
+            std::cout<<"zwrocono INT_MIN"<<std::endl;
+            return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
         }
         wybrany = wybrany->nastepny;
     }
-    return wybrany;
+    this->aktualny_element = wybrany;
+    return *(wybrany->wartosc);
 }
 
 // numeracja od 0 jak w tablicy
 template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::iteruj_wstecz(unsigned int numer_elem){
+typ lista_2_kier<typ>::iterator::iteruj_wstecz(unsigned int numer_elem){
     if(this->przypisana_lista != nullptr){
         if(this->przypisana_lista->czy_pusta() == false){
             element_2_kier<typ> *wybrany = this->przypisana_lista->ostatni();
             for(unsigned int i=0;i<numer_elem;i++){
                 if (wybrany->poprzedni == nullptr){
                     std::cout<<"nie ma takiego elementu"<<std::endl;
-                    std::cout<<"zwrocono nullptr"<<std::endl;
-                    return nullptr; //w razie przekroczenia zakresu zwraca nullptr
+                    std::cout<<"zwrocono INT_MIN"<<std::endl;
+                    return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
                 }
                 wybrany = wybrany->poprzedni;
             }
-            return wybrany; // jesli lista_2_kier nie bedzie pusta zwroci adres elementu
+            this->aktualny_element = wybrany; // przypisze adres elementu do pola aktualny_element
+            return *(wybrany->wartosc); // jesli lista_2_kier nie bedzie pusta zwraca wartosc elementu
         }
-        std::cout << "lista_2_kier pusta, zwrocono nulptr" << std::endl;
-        return nullptr; // w razie pustej listy zwraca nullptr
+        std::cout << "lista_2_kier pusta, zwrocono INT_MIN" << std::endl;
+        return INT_MIN; // w razie pustej listy zwraca INT_MIN
     }
-    std::cout << "nie przypisano listy, zwrocono nullptr" << std::endl;
-    return nullptr;
+    std::cout << "nie przypisano listy, zwrocono INT_MIN" << std::endl;
+    return INT_MIN;
 }
 
 template<typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::iteruj_wstecz(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem){
+typ lista_2_kier<typ>::iterator::iteruj_wstecz(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem){
     element_2_kier<typ> *wybrany;
     wybrany = wskazany_elem;
     for(unsigned int i=0;i<numer_elem;i++){
         if (wybrany->poprzedni == nullptr){
             std::cout<<"nie ma takiego elementu"<<std::endl;
-            std::cout<<"zwrocono nullptr"<<std::endl;
-            return nullptr; //w razie przekroczenia zakresu zwraca nullptr
+            std::cout<<"zwrocono INT_MIN"<<std::endl;
+            return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
         }
         wybrany = wybrany->poprzedni;
     }
-    return wybrany;
+    this->aktualny_element = wybrany;
+    return *(wybrany->wartosc);
 }
 
 template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::operator ++(){
+typ lista_2_kier<typ>::iterator::operator ++(){
     if(this->aktualny_element != nullptr){
         this->aktualny_element = this->aktualny_element->nastepny;
     }
-    return this->aktualny_element;
+    if(this->aktualny_element == nullptr){
+        return INT_MIN;
+    }
+    return *(this->aktualny_element->wartosc);
 }
 
 template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::operator ++(int){
+typ lista_2_kier<typ>::iterator::operator ++(int){
     if(this->aktualny_element != nullptr){
         this->aktualny_element = this->aktualny_element->nastepny;
     }
-    return this->aktualny_element;
+    if(this->aktualny_element == nullptr){
+        return INT_MIN;
+    }
+    return *(this->aktualny_element->wartosc);
 }
 
 template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::operator --(){
+typ lista_2_kier<typ>::iterator::operator --(){
     if(this->aktualny_element != nullptr){
         this->aktualny_element = this->aktualny_element->poprzedni;
     }
-    return this->aktualny_element;
+    if(this->aktualny_element == nullptr){
+        return INT_MIN;
+    }
+    return *(this->aktualny_element->wartosc);
 }
 
 template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::operator --(int){
+typ lista_2_kier<typ>::iterator::operator --(int){
     if(this->aktualny_element != nullptr){
         this->aktualny_element = this->aktualny_element->poprzedni;
     }
-    return this->aktualny_element;
+    if(this->aktualny_element == nullptr){
+        return INT_MIN;
+    }
+    return *(this->aktualny_element->wartosc);
 }
 
 template <typename typ>
@@ -331,7 +347,18 @@ element_2_kier<typ>* lista_2_kier<typ>::iterator::przeszukaj(typ szukany){
 }
 
 template <typename typ>
-element_2_kier<typ>* lista_2_kier<typ>::iterator::wartosc(){
+typ lista_2_kier<typ>::iterator::wartosc(){
+    return *(this->aktualny_element->wartosc);
+}
+
+template <typename typ>
+element_2_kier<typ>* lista_2_kier<typ>::iterator::zwroc_elem(){
+    return this->aktualny_element;
+}
+
+template <typename typ>
+element_2_kier<typ>* lista_2_kier<typ>::iterator::zwroc_elem(int indeks){
+    this->iteruj(indeks);
     return this->aktualny_element;
 }
 

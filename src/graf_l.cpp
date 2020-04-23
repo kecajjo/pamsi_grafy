@@ -29,8 +29,9 @@ void lista_sasiedztwa<kraw, wierzch>::dodaj_krawedz(wierzcholek_l<kraw, wierzch>
 template <typename kraw, typename wierzch>
 void lista_sasiedztwa<kraw, wierzch>::usun_wierzcholek(wierzcholek_l<kraw, wierzch>* do_usuniecia){
     typename lista_2_kier< krawedz_l<kraw, wierzch>* >::iterator it = do_usuniecia->krawedzie;
-    while(it.wartosc() != nullptr){ // konczy dzialanie petli gdy aktualny element bedzie wskazywac na nullptr
-        this->usun_krawedz(*(it.wartosc()->wartosc)); // usuwa sktualny element z listy
+    lista_2_kier< krawedz_l<kraw, wierzch>* > *lst_kraw_wierzch = this->przylegle_krawedzie(do_usuniecia);
+    while(lst_kraw_wierzch->czy_pusta() == false){ // konczy dzialanie petli gdy lista krawedzi wierzcholka bedzie pusta
+        this->usun_krawedz(*(it.zwroc_elem()->wartosc)); // usuwa aktualny element z listy
         it.poczatek(); // za kazdym razem usuwamy pierwszy element
     }
     delete do_usuniecia->krawedzie; // usuwa liste krawedzi werzcholka po oproznieniu jej
@@ -81,7 +82,7 @@ bool lista_sasiedztwa<kraw, wierzch>::czy_sasiednie(wierzcholek_l<kraw,wierzch> 
     
     // petla przeszukuje liste krawedzi danego wierzcholka
     for(int i=0;i<rozmiar;i++){
-        krawedz_l<kraw, wierzch> *pomocnicza = *(it.wartosc()->wartosc);
+        krawedz_l<kraw, wierzch> *pomocnicza = *(it.zwroc_elem()->wartosc);
         // jesli drugi wierzcholek jest w tablicy wierzcholkow krawedzi nastepne 2 IFy to wykryja
         if(pomocnicza->wierzcholki[0] == wierzch2){
             return true;
@@ -92,6 +93,11 @@ bool lista_sasiedztwa<kraw, wierzch>::czy_sasiednie(wierzcholek_l<kraw,wierzch> 
     }
     // jesli wierzcholki nie maja wspolnej krawedzi lub drugi wierzcholek nie istnieje zwraca false
     return false;
+}
+
+template <typename kraw, typename wierzch>
+lista_2_kier< krawedz_l<kraw, wierzch> *> *lista_sasiedztwa<kraw, wierzch>::przylegle_krawedzie(wierzcholek_l<kraw, wierzch> *wierzcholek){
+    return wierzcholek->krawedzie;
 }
 
 #endif

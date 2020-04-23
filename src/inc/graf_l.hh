@@ -24,6 +24,7 @@ class lista_sasiedztwa{
     bool czy_sasiednie(wierzcholek_l<kraw, wierzch> *wierzch1, wierzcholek_l<kraw, wierzch> *wierzch2);
     lista_2_kier< wierzcholek_l<kraw, wierzch> > *wierzcholki(){return &this->lista_wierzcholkow;}
     lista_2_kier< krawedz_l<kraw, wierzch> > *krawedzie(){return &this->lista_krawedzi;}
+    lista_2_kier< krawedz_l<kraw, wierzch> *> *przylegle_krawedzie(wierzcholek_l<kraw, wierzch> *wierzcholek);
 
 };
 

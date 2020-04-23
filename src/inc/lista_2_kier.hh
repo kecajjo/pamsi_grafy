@@ -2,6 +2,7 @@
 #define LISTA_2_KIER_HH
 
 #include <iostream>
+#include <climits>
 
 template <typename typ>
 struct element_2_kier {
@@ -54,18 +55,20 @@ class lista_2_kier {
         public:
         iterator();
         iterator(lista_2_kier<typ> *moja_lista);
-        element_2_kier<typ>* iteruj(unsigned int numer_elem); // iteruje liste
-        element_2_kier<typ>* iteruj(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem); // iteruje liste od wskazanego elementu
-        element_2_kier<typ>* iteruj_wstecz(unsigned int numer_elem); // iteruje liste wstecz
-        element_2_kier<typ>* iteruj_wstecz(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem); // iteruje liste wstecz od wskazanego elementu
-        element_2_kier<typ>* operator ++(); // przeciazenie operatora ++
-        element_2_kier<typ>* operator ++(int); // przeciazenie operatora ++
-        element_2_kier<typ>* operator --(); // przeciazenie operatora ++
-        element_2_kier<typ>* operator --(int); // przeciazenie operatora ++
+        typ iteruj(unsigned int numer_elem); // iteruje liste
+        typ iteruj(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem); // iteruje liste od wskazanego elementu
+        typ iteruj_wstecz(unsigned int numer_elem); // iteruje liste wstecz
+        typ iteruj_wstecz(element_2_kier<typ> *wskazany_elem, unsigned int numer_elem); // iteruje liste wstecz od wskazanego elementu
+        typ operator ++(); // przeciazenie operatora ++
+        typ operator ++(int); // przeciazenie operatora ++
+        typ operator --(); // przeciazenie operatora ++
+        typ operator --(int); // przeciazenie operatora ++
         void operator =(lista_2_kier<typ> &moja_lista); // przypisanie iteratora do listy
         void operator =(iterator moj_iter); // przypisanie iteratora do innego
         element_2_kier<typ>* przeszukaj(typ szukany);
-        element_2_kier<typ>* wartosc(); // zwraca wskaznik na aktualny element_2_kier
+        typ wartosc();
+        element_2_kier<typ>* zwroc_elem(); // zwraca wskaznik na aktualny element_2_kier
+        element_2_kier<typ>* zwroc_elem(int indeks); // zwraca wskaznik na element_2_kier o podanym indeksie
         void poczatek(); // iterator jako aktualny element ma 1szy element listy
         void koniec(); // iterator jako aktualny element ma ostatni element listy
     };

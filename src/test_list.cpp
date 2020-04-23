@@ -29,26 +29,28 @@ int main(){
     lista_2_kier<int>::iterator it2;
     it2=it;
 
-    element_2_kier<int> *te_it = it2.iteruj(2);
-    element_2_kier<int> *t_it = it2.iteruj(te_it, 2);
-    std::cout<<"test iteracji:"<<*te_it->wartosc<<std::endl;
-    std::cout<<"test iteracji od elementu:"<<*t_it->wartosc<<std::endl;
-    t_it = moja_lista_2_kier.pierwszy();
+    int te_it = it2.iteruj(2);
+    element_2_kier<int> *adres_t_it = it2.zwroc_elem();
+    int t_it = it2.iteruj(adres_t_it, 2);
+    std::cout<<"test iteracji:"<<te_it<<std::endl;
+    std::cout<<"test iteracji od elementu:"<<t_it<<std::endl;
+    adres_t_it = moja_lista_2_kier.pierwszy();
     std::cout<<std::endl;
     it.poczatek();
     for(int i=0;i<6;i++){
-        std::cout << *(it.wartosc())->wartosc << std::endl;
+        std::cout << it.wartosc() << std::endl;
         it++;
     }
     te_it = it2.iteruj_wstecz(2);
-    t_it = it2.iteruj_wstecz(te_it, 2);
-    std::cout<<"test iteracji wstecz:"<<*te_it->wartosc<<std::endl;
-    std::cout<<"test iteracji wstecz od elementu:"<<*t_it->wartosc<<std::endl;
+    adres_t_it = it2.zwroc_elem();
+    t_it = it2.iteruj_wstecz(adres_t_it, 2);
+    std::cout<<"test iteracji wstecz:"<<te_it<<std::endl;
+    std::cout<<"test iteracji wstecz od elementu:"<<t_it<<std::endl;
     std::cout<<std::endl;
     
     it.koniec();
     for(int i=0;i<6;i++){
-        std::cout << *(it.wartosc())->wartosc << std::endl;
+        std::cout << it.wartosc() << std::endl;
         it--;
     }
 
@@ -82,14 +84,15 @@ int main(){
     lista<int>::iterator iter2;
     iter2=iter;
 
-    element<int> *test_iteracji = iter2.iteruj(2);
-    element<int> *t_iter = iter2.iteruj(test_iteracji, 1);
-    std::cout<<"test iteracji:"<<*test_iteracji->wartosc<<std::endl;
-    std::cout<<"test iteracji od elementu:"<<*t_iter->wartosc<<std::endl;
-    t_iter = moja_lista.pierwszy();
+    int test_iteracji = iter2.iteruj(2);
+    element<int> *adres_test_iteracji = iter2.zwroc_elem();
+    int t_iter = iter2.iteruj(adres_test_iteracji, 1);
+    std::cout<<"test iteracji:"<<test_iteracji<<std::endl;
+    std::cout<<"test iteracji od elementu:"<<t_iter<<std::endl;
+    adres_test_iteracji = moja_lista.pierwszy();
     std::cout<<std::endl;
     for(int i=0;i<6;i++){
-        std::cout << *(iter.wartosc())->wartosc << std::endl;
+        std::cout << iter.wartosc() << std::endl;
         iter++;
     }
     element<int> *pierwszy = moja_lista.pierwszy();

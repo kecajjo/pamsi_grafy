@@ -2,6 +2,7 @@
 #define LISTA_HH
 
 #include <iostream>
+#include <climits>
 
 template <typename typ>
 struct element {
@@ -48,14 +49,16 @@ class lista {
         public:
         iterator();
         iterator(lista<typ> *moja_lista);
-        element<typ>* iteruj(unsigned int numer_elem); // iteruje liste
-        element<typ>* iteruj(element<typ> *wskazany_elem, unsigned int numer_elem); // iteruje liste od wskazanego elementu
-        element<typ>* operator ++(); // przeciazenie operatora ++
-        element<typ>* operator ++(int); // przeciazenie operatora ++
+        typ iteruj(unsigned int numer_elem); // iteruje liste
+        typ iteruj(element<typ> *wskazany_elem, unsigned int numer_elem); // iteruje liste od wskazanego elementu
+        typ operator ++(); // przeciazenie operatora ++
+        typ operator ++(int); // przeciazenie operatora ++
         void operator =(lista<typ> &moja_lista); // przypisanie iteratora do listy
         void operator =(iterator moj_iter); // przypisanie iteratora do innego
         element<typ>* przeszukaj(typ szukany);
-        element<typ>* wartosc(); // zwraca wskaznik na aktualny element
+        typ wartosc();
+        element<typ>* zwroc_elem(); // zwraca wskaznik na aktualny element
+        element<typ>* zwroc_elem(int indeks); // zwraca wskaznik na element o podanym indeksie
         void poczatek(); // iterator jako aktualny element ma 1szy element listy
     };
 };
