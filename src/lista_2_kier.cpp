@@ -10,7 +10,7 @@ lista_2_kier<typ>::lista_2_kier(){
 }
 
 template<typename typ>
-unsigned int lista_2_kier<typ>::rozmiar(){
+int lista_2_kier<typ>::rozmiar(){
     if(this->czy_pusta() == false){
         unsigned int wielkosc = 1; //lista_2_kier nie moze byc pusta
         element_2_kier<typ> *ostatni = this->pierwszy_element;
@@ -336,8 +336,8 @@ element_2_kier<typ>* lista_2_kier<typ>::iterator::przeszukaj(typ szukany){
             if(szukany == *(this->przypisana_lista->ostatni()->wartosc)){ //sprawdza jeszcze ostatni element_2_kier pominiety przez petle
                 return this->przypisana_lista->ostatni();
             }
-            std::cout << "nie znaleziono elementu" << std::endl;
-            return nullptr; //gdy cos pojdzie nie tak zwraca nullptr
+            //std::cout << "nie znaleziono elementu" << std::endl;
+            return nullptr; //gdy nie znjadzie elementu zwraca nullptr
         }
         std::cout << "lista_2_kier pusta" << std::endl;
         return nullptr; //gdy cos pojdzie nie tak zwraca nullptr

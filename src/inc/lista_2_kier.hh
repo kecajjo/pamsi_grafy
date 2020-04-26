@@ -38,7 +38,7 @@ class lista_2_kier {
     element_2_kier<typ>* iteruj_od_konca(unsigned int iter); */
     element_2_kier<typ>* pierwszy(); // zwraca wskaznik na pierwszy element_2_kier
     element_2_kier<typ>* ostatni(); // zwraca wskaznik na ostatni eleme
-    unsigned int rozmiar();
+    int rozmiar();
     void dodaj_na_poczatek(typ dodaj);
     void dodaj_na_koniec(typ dodaj);
     void usun_pierwszy();
@@ -65,7 +65,7 @@ class lista_2_kier {
         typ operator --(int); // przeciazenie operatora ++
         void operator =(lista_2_kier<typ> &moja_lista); // przypisanie iteratora do listy
         void operator =(iterator moj_iter); // przypisanie iteratora do innego
-        element_2_kier<typ>* przeszukaj(typ szukany);
+        element_2_kier<typ>* przeszukaj(typ szukany);// zwraca wskaznik na element lub nullptr, jesli go nie znajdzie
         typ* wartosc(); // zwraca wskaznik na wartosc aktualnego elmentu
         typ* wartosc(int indeks); //zwraca wskaznik na wartosc elementu o podanym indeksie
         element_2_kier<typ>* zwroc_elem(); // zwraca wskaznik na aktualny element_2_kier

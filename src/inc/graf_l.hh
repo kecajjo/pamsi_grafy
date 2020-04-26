@@ -4,7 +4,6 @@
 #include "element_l.hh"
 #include "lista_2_kier.hh"
 
-// TODO 3ostatnie funkcje z prezentacji (te od iteracji)
 // graf realizowany za pomoca listy sasiedztwa
 template <typename kraw, typename wierzch>
 class lista_sasiedztwa{
@@ -27,6 +26,12 @@ class lista_sasiedztwa{
     lista_2_kier< krawedz_l<kraw, wierzch> *> *przylegle_krawedzie(wierzcholek_l<kraw, wierzch> *wierzcholek); // zwraca liste wskaznikow na krawedzie wierzcholka
 
 };
+
+template <typename kraw, typename wierzch>
+std::ostream& operator << (std::ostream &strm, lista_sasiedztwa<kraw, wierzch> graf);
+
+template <typename kraw, typename wierzch>
+std::istream& operator >> (std::istream &strm, lista_sasiedztwa<kraw, wierzch> &graf);
 
 #include "../graf_l.cpp"
 

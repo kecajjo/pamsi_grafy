@@ -4,6 +4,7 @@
 #include "lista_2_kier.hh"
 #include "element_m.hh"
 
+// graf realizowany za pomoca macierzy sasiedztwa
 template<typename kraw, typename wierzch>
 class mac_sasiedztwa{
     lista_2_kier< wierzcholek_m<wierzch> > lista_wierzcholkow; // lista wierzcholkow grafu
@@ -26,6 +27,13 @@ class mac_sasiedztwa{
     krawedz_m<kraw, wierzch> **przylegle_krawedzie(wierzcholek_m<wierzch> *wierzcholek); // zwraca wskaznik na wiersz w macierzy
 
 };
+
+template <typename kraw, typename wierzch>
+std::ostream& operator << (std::ostream &strm, mac_sasiedztwa<kraw, wierzch> graf);
+
+template <typename kraw, typename wierzch>
+std::istream& operator >> (std::istream &strm, mac_sasiedztwa<kraw, wierzch> &graf);
+
 #include "../graf_m.cpp"
 
 #endif

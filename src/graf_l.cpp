@@ -35,14 +35,12 @@ void lista_sasiedztwa<kraw, wierzch>::usun_wierzcholek(wierzcholek_l<kraw, wierz
         it.poczatek(); // za kazdym razem usuwamy pierwszy element
     }
     delete do_usuniecia->krawedzie; // usuwa liste krawedzi werzcholka po oproznieniu jej
-    delete do_usuniecia->nazwa; // usuwa nazwe wierzcholka
     this->lista_wierzcholkow.usun_element(do_usuniecia->miejsce_na_liscie);
 }
 
 template <typename kraw, typename wierzch>
 void lista_sasiedztwa<kraw, wierzch>::usun_krawedz(krawedz_l<kraw, wierzch>* do_usuniecia){
-    delete do_usuniecia->nazwa; // usuwa nazwe/wartosc krawedzi
-    
+
     // usuwa wskazniki na krawedz z listy wskaznikow na krawedzie wierzcholka
     do_usuniecia->wierzcholki[0]->krawedzie->usun_element(do_usuniecia->krawedzie_wierzcholka[0]);
     do_usuniecia->wierzcholki[1]->krawedzie->usun_element(do_usuniecia->krawedzie_wierzcholka[1]);
@@ -51,12 +49,12 @@ void lista_sasiedztwa<kraw, wierzch>::usun_krawedz(krawedz_l<kraw, wierzch>* do_
 
 template <typename kraw, typename wierzch>
 void lista_sasiedztwa<kraw, wierzch>::zamien(wierzcholek_l<kraw, wierzch> *wierzcholek, wierzch nowa_nazwa){
-    *(wierzcholek->nazwa) = nowa_nazwa;
+    wierzcholek->nazwa = nowa_nazwa;
 }
 
 template <typename kraw, typename wierzch>
 void lista_sasiedztwa<kraw, wierzch>::zamien(krawedz_l<kraw, wierzch> *krawedz, kraw nowa_nazwa){
-    *(krawedz->nazwa) = nowa_nazwa;
+    krawedz->nazwa = nowa_nazwa;
 }
 
 template <typename kraw, typename wierzch>
@@ -99,6 +97,84 @@ bool lista_sasiedztwa<kraw, wierzch>::czy_sasiednie(wierzcholek_l<kraw,wierzch> 
 template <typename kraw, typename wierzch>
 lista_2_kier< krawedz_l<kraw, wierzch> *> *lista_sasiedztwa<kraw, wierzch>::przylegle_krawedzie(wierzcholek_l<kraw, wierzch> *wierzcholek){
     return wierzcholek->krawedzie;
+}
+
+template <typename kraw, typename wierzch>
+std::ostream& operator << (std::ostream &strm, lista_sasiedztwa<kraw, wierzch> graf){
+    strm << graf.krawedzie()->rozmiar() << "\t" 
+        << graf.wierzcholki()->rozmiar() << "\t"
+        << graf.wierzcholki()->pierwszy()->wartosc->nazwa << std::endl;
+
+    typename lista_2_kier< krawedz_l<kraw, wierzch> >::iterator it = graf.krawedzie();
+    krawedz_l<kraw, wierzch> krawedz;
+
+    for(int i=0;i<graf.krawedzie()->rozmiar();i++){
+        krawedz = *(it.wartosc());
+        strm << krawedz.wierzcholki[0]->nazwa << "\t"
+            << krawedz.wierzcholki[1]->nazwa << "\t"
+            << krawedz.nazwa << std::endl;
+        it++;
+    }
+    return strm;
+}
+
+template <typename kraw, typename wierzch>
+std::istream& operator >> (std::istream &strm, lista_sasiedztwa<kraw, wierzch> &graf){
+    int ilosc_krawedzi;
+    int ilosc_wierzcholkow;
+    wierzch startowy;
+
+    strm >> ilosc_krawedzi;
+    strm >> ilosc_wierzcholkow;
+    strm >> startowy;
+    
+    wierzch nazwa_w1;
+    wierzch nazwa_w2;
+    kraw nazwa_k;
+
+    typename lista_2_kier< wierzcholek_l<kraw, wierzch> >::iterator it = graf.wierzcholki();
+
+ /*    element_2_kier< wierzcholek_m<wierzch> > elem_w1;
+    element_2_kier< wierzcholek_m<wierzch> > elem_w2;
+    element_2_kier< krawedz_m<kraw, wierzch> > elem_k; */
+
+    wierzcholek_l<kraw, wierzch> w1;
+    wierzcholek_l<kraw, wierzch> w2;
+
+    wierzcholek_l<kraw, wierzch> *wsk_w1;
+    wierzcholek_l<kraw, wierzch> *wsk_w2;
+    wsk_w1 = &w1;
+    wsk_w2 = &w2;
+
+
+    graf.dodaj_wierzcholek(startowy);
+    for(int i=0;i<ilosc_krawedzi;i++){
+        strm >> nazwa_w1;
+        w1.nazwa = nazwa_w1;
+        if(it.przeszukaj(w1) != nullptr){ // jesli istnieje wierzcholek o podanej nazwie
+            wsk_w1 = it.przeszukaj(w1)->wartosc; //wskazuje na juz istniejacy wierzcholek o podanej nazwie
+        } else{ // jesli wierzcholek nie istnieje, dodaje go
+            graf.dodaj_wierzcholek(nazwa_w1);
+            wsk_w1 = it.wartosc(graf.wierzcholki()->rozmiar()-1); // wskaznik na dodany wierzcholek
+        }
+        strm >> nazwa_w2;
+        w2.nazwa = nazwa_w2;
+        if(it.przeszukaj(w2) != nullptr){ // jesli istnieje wierzcholek o podanej nazwie
+            wsk_w2 = it.przeszukaj(w2)->wartosc; //wskazuje na juz istniejacy wierzcholek o podanej nazwie
+        } else{ // jesli wierzcholek nie istnieje, dodaje go
+            graf.dodaj_wierzcholek(nazwa_w2);
+            wsk_w2 = it.wartosc(graf.wierzcholki()->rozmiar()-1); // wskaznik na dodany wierzcholek
+        }
+        strm >> nazwa_k;
+        graf.dodaj_krawedz(wsk_w1, wsk_w2, nazwa_k);
+    }
+
+    if(graf.wierzcholki()->rozmiar() != ilosc_wierzcholkow){
+        std::cout << "ILOSC WIERZCHOLKOW ROZNA OD ZADEKLAROWANEJ PRZEZ UZYTKOWNIKA" << std::endl;
+    }
+
+    return strm;
+
 }
 
 #endif

@@ -4,6 +4,10 @@
 int main(){
 
     mac_sasiedztwa<int, int> macierz;
+    //mac_sasiedztwa<int, int> test_wczytywania;
+    //std::cin >> test_wczytywania;
+    //std::cout << test_wczytywania;
+
     macierz.dodaj_wierzcholek(1);
     macierz.dodaj_wierzcholek(2);
 
@@ -60,7 +64,11 @@ int main(){
     for(int i=0;i<25;i++){
         tmp[i] = macierz.przylegle_krawedzie(w1_m)[i];
     }  */
+    //std::cout<<macierz<<std::endl;
+
     macierz.usun_wierzcholek(w1_m);
+
+    //std::cout<<macierz;
 
     //////////////////////
     // lista sasiedztwa //
@@ -68,6 +76,10 @@ int main(){
     lista_sasiedztwa<int, int> sasiad;
     sasiad.dodaj_wierzcholek(1);
     sasiad.dodaj_wierzcholek(2);
+
+    //mac_sasiedztwa<int, int> test_wczytywania_l_s;
+    //std::cin >> test_wczytywania_l_s;
+    //std::cout << test_wczytywania_l_s;
     
     lista_2_kier< wierzcholek_l<int, int> >::iterator iter_w = sasiad.wierzcholki();
     iter_w.iteruj(0);
