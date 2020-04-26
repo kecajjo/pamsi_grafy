@@ -347,8 +347,14 @@ element_2_kier<typ>* lista_2_kier<typ>::iterator::przeszukaj(typ szukany){
 }
 
 template <typename typ>
-typ lista_2_kier<typ>::iterator::wartosc(){
-    return *(this->aktualny_element->wartosc);
+typ* lista_2_kier<typ>::iterator::wartosc(){
+    return this->aktualny_element->wartosc;
+}
+
+template <typename typ>
+typ* lista_2_kier<typ>::iterator::wartosc(int indeks){
+    this->iteruj(indeks);
+    return this->aktualny_element->wartosc;
 }
 
 template <typename typ>

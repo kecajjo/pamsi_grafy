@@ -1,13 +1,12 @@
 #ifndef ELEMENT_L_HH
 #define ELEMENT_L_HH
 
-#include "lista.hh"
 #include "lista_2_kier.hh"
 
 template <typename kraw, typename wierzch> struct krawedz_l;
 template <typename kraw, typename wierzch> struct wierzcholek_l;
 
-// wierzcholek wykorzystywany w reprezentacji za pomoca listy sasiedztwa
+// wierzcholek wykorzystywany w reprezentacji grafu za pomoca listy sasiedztwa
 // musimy znac typ danych jakie przechowuje krawedz i wierzcholek
 template <typename kraw, typename wierzch>
 struct wierzcholek_l{
@@ -19,7 +18,7 @@ struct wierzcholek_l{
     //wierzch operator*() const {return this->nazwa;}
 };
 
-// krawedz wykorzystywana w reprezentacji za pomoca listy sasiedztwa
+// krawedz wykorzystywana w reprezentacji grafu za pomoca listy sasiedztwa
 // musimy znac typ danych jakie przechowuje krawedz i wierzcholek
 template <typename kraw, typename wierzch>
 struct krawedz_l{

@@ -235,8 +235,14 @@ element<typ>* lista<typ>::iterator::przeszukaj(typ szukany){
 }
 
 template <typename typ>
-typ lista<typ>::iterator::wartosc(){
-    return *(this->aktualny_element->wartosc);
+typ* lista<typ>::iterator::wartosc(){
+    return this->aktualny_element->wartosc;
+}
+
+template <typename typ>
+typ* lista<typ>::iterator::wartosc(int indeks){
+    this->iteruj(indeks);
+    return this->aktualny_element->wartosc;
 }
 
 template <typename typ>

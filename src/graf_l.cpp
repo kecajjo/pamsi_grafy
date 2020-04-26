@@ -22,8 +22,8 @@ void lista_sasiedztwa<kraw, wierzch>::dodaj_krawedz(wierzcholek_l<kraw, wierzch>
     krawedz_l<kraw, wierzch> *wskaznik_na_krawedz = this->lista_krawedzi.ostatni()->wartosc;
     wskaznik_na_krawedz->wierzcholki[0]->krawedzie->dodaj_na_koniec(wskaznik_na_krawedz);
     wskaznik_na_krawedz->wierzcholki[1]->krawedzie->dodaj_na_koniec(wskaznik_na_krawedz);
-    wskaznik_na_krawedz->krawedzie_wierzcholka[0] = wierzch1->krawedzie->ostatni(); // przypisuje wskazznik na pozycje na liscie krawedzi wierzcholka
-    wskaznik_na_krawedz->krawedzie_wierzcholka[1] = wierzch2->krawedzie->ostatni(); // przypisuje wskazznik na pozycje na liscie krawedzi wierzcholka
+    wskaznik_na_krawedz->krawedzie_wierzcholka[0] = wierzch1->krawedzie->ostatni(); // przypisuje wskaznik na pozycje na liscie krawedzi wierzcholka
+    wskaznik_na_krawedz->krawedzie_wierzcholka[1] = wierzch2->krawedzie->ostatni(); // przypisuje wskaznik na pozycje na liscie krawedzi wierzcholka
 }
 
 template <typename kraw, typename wierzch>
@@ -42,6 +42,7 @@ void lista_sasiedztwa<kraw, wierzch>::usun_wierzcholek(wierzcholek_l<kraw, wierz
 template <typename kraw, typename wierzch>
 void lista_sasiedztwa<kraw, wierzch>::usun_krawedz(krawedz_l<kraw, wierzch>* do_usuniecia){
     delete do_usuniecia->nazwa; // usuwa nazwe/wartosc krawedzi
+    
     // usuwa wskazniki na krawedz z listy wskaznikow na krawedzie wierzcholka
     do_usuniecia->wierzcholki[0]->krawedzie->usun_element(do_usuniecia->krawedzie_wierzcholka[0]);
     do_usuniecia->wierzcholki[1]->krawedzie->usun_element(do_usuniecia->krawedzie_wierzcholka[1]);

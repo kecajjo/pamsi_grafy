@@ -1,8 +1,8 @@
-#ifndef GRAF_HH
-#define GRAF_HH
+#ifndef GRAF_L_HH
+#define GRAF_L_HH
 
-#include "lista.hh"
 #include "element_l.hh"
+#include "lista_2_kier.hh"
 
 // TODO 3ostatnie funkcje z prezentacji (te od iteracji)
 // graf realizowany za pomoca listy sasiedztwa
@@ -10,7 +10,7 @@ template <typename kraw, typename wierzch>
 class lista_sasiedztwa{
 
     lista_2_kier< wierzcholek_l<kraw, wierzch> > lista_wierzcholkow; // lista wierzcholkow grafu
-    lista_2_kier< krawedz_l<kraw, wierzch> > lista_krawedzi; // lista krawedzi grafu dwukierunkowa do szybszego usuwania wierzcholkow
+    lista_2_kier< krawedz_l<kraw, wierzch> > lista_krawedzi; // lista krawedzi grafu 
 
     public:
     void dodaj_wierzcholek(wierzch nazwa); // dodaje wierzcholek o nazwie
@@ -24,7 +24,7 @@ class lista_sasiedztwa{
     bool czy_sasiednie(wierzcholek_l<kraw, wierzch> *wierzch1, wierzcholek_l<kraw, wierzch> *wierzch2);
     lista_2_kier< wierzcholek_l<kraw, wierzch> > *wierzcholki(){return &this->lista_wierzcholkow;}
     lista_2_kier< krawedz_l<kraw, wierzch> > *krawedzie(){return &this->lista_krawedzi;}
-    lista_2_kier< krawedz_l<kraw, wierzch> *> *przylegle_krawedzie(wierzcholek_l<kraw, wierzch> *wierzcholek);
+    lista_2_kier< krawedz_l<kraw, wierzch> *> *przylegle_krawedzie(wierzcholek_l<kraw, wierzch> *wierzcholek); // zwraca liste wskaznikow na krawedzie wierzcholka
 
 };
 

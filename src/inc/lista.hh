@@ -56,7 +56,8 @@ class lista {
         void operator =(lista<typ> &moja_lista); // przypisanie iteratora do listy
         void operator =(iterator moj_iter); // przypisanie iteratora do innego
         element<typ>* przeszukaj(typ szukany);
-        typ wartosc();
+        typ* wartosc(); // zwraca wskaznik na wartosc aktualnego elmentu
+        typ* wartosc(int indeks); //zwraca wskaznik na wartosc elementu o podanym indeksie
         element<typ>* zwroc_elem(); // zwraca wskaznik na aktualny element
         element<typ>* zwroc_elem(int indeks); // zwraca wskaznik na element o podanym indeksie
         void poczatek(); // iterator jako aktualny element ma 1szy element listy
