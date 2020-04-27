@@ -72,6 +72,7 @@ class lista_2_kier {
         element_2_kier<typ>* zwroc_elem(int indeks); // zwraca wskaznik na element_2_kier o podanym indeksie
         void poczatek(); // iterator jako aktualny element ma 1szy element listy
         void koniec(); // iterator jako aktualny element ma ostatni element listy
+        int rozmiar(){return this->przypisana_lista->rozmiar();}
     };
 
 };

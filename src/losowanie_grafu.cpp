@@ -12,7 +12,7 @@ int main(){
     int ilosc_krawedzi = ROZMIAR*(ROZMIAR-1)/2;
     int ilosc_wierzcholkow = ROZMIAR;
     for(int i=0;i<ROZMIAR;i++){
-        for(int j=0;j<ROZMIAR;j++){
+        for(int j=0;j<i;j++){
             tab[i][j] = rand()%1000;
         }
     }
@@ -21,12 +21,10 @@ int main(){
         << 0 << std::endl;
 
     for(int i=0;i<ROZMIAR;i++){
-        for(int j=0;j<ROZMIAR;j++){
-            if(i != j){
-                plik << i << "\t"
-                    << j << "\t"
-                    << tab[i][j] << std::endl;
-            }
+        for(int j=0;j<i;j++){
+            plik << i << "\t"
+                << j << "\t"
+                << tab[i][j] << std::endl;
         }
     }
 }

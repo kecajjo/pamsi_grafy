@@ -4,10 +4,12 @@
 #include "inc/kopiec.hh"
 
 template <typename typ>
-void kopiec<typ>::podmien(typ *pierwszy, typ *drugi){
-    int chwilowe = *pierwszy;
-    *pierwszy = *drugi;
-    *drugi = chwilowe;
+void kopiec<typ>::podmien(para<typ> *pierwszy, para<typ> *drugi){
+    para<typ> chwilowe = *pierwszy;
+    pierwszy->priorytet = drugi->priorytet;
+    drugi->priorytet = chwilowe.priorytet;
+    pierwszy->nazwa = drugi->nazwa;
+    drugi->nazwa = chwilowe.nazwa;
 }
 
 template<typename typ>
@@ -52,14 +54,18 @@ void kopiec<typ>::napraw_kopiec_po_dodaniu(){
 }
 
 template <typename typ>
-void kopiec<typ>::dodaj(typ do_dodania){
-    this->kolejka.dodaj(do_dodania);
+void kopiec<typ>::dodaj(typ do_dodania, int priorytet){
+    para<typ> moja_para(do_dodania);
+    moja_para.priorytet = priorytet;
+    this->kolejka.dodaj(moja_para);
     this->napraw_kopiec_po_dodaniu();
 }
 
 template <typename typ>
-typ kopiec<typ>::sciagnij(){
-    typ do_zwrocenia = this->kolejka[0];
+para<typ> kopiec<typ>::sciagnij(){
+    para<typ> do_zwrocenia;
+    do_zwrocenia.nazwa = this->kolejka[0].nazwa;
+    do_zwrocenia.priorytet = this->kolejka[0].priorytet;
     podmien(&this->kolejka[0], &this->kolejka[this->kolejka.zwroc_rozmiar()-1]);
     this->kolejka.usun();
     this->napraw_kopiec_po_usunieciu();
@@ -67,7 +73,7 @@ typ kopiec<typ>::sciagnij(){
 }
 
 template <typename typ>
-typ kopiec<typ>::pokaz_najmniejszy(){
+para<typ> kopiec<typ>::pokaz_najmniejszy(){
     return this->kolejka[0];
 }
 
