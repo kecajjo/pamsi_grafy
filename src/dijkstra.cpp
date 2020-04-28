@@ -67,3 +67,16 @@ void dijkstra_m(mac_sasiedztwa<int, int> *graf, wynik *moj_wynik){
 
     }
 }
+
+std::ostream& operator << (std::ostream &strm, wynik moj_wynik){
+    for(int i=0;i<moj_wynik.wielkosc;i++){
+        strm << moj_wynik.droga[i] << " ";
+        int j = i;
+        while(moj_wynik.poprzednik[j] != -1){
+            strm << moj_wynik.poprzednik[j] << " ";
+            j = moj_wynik.poprzednik[j];
+        }
+        strm << std::endl;
+    }
+    return strm;
+}

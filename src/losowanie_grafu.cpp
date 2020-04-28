@@ -1,8 +1,5 @@
 #include "inc/losowanie_grafu.hh"
 
-// TO DO naprawic zeby moc podawac nazwe 
-
-#define ROZMIAR 1000
 void losuj_graf(int ilosc_wierzcholkow, std::string nazwa, int typ_gestosci, int zakres_wag_kraw){
     std::srand(time(NULL));
 
@@ -20,16 +17,16 @@ void losuj_graf(int ilosc_wierzcholkow, std::string nazwa, int typ_gestosci, int
     }
     int ilosc_krawedzi = 0;
     switch(typ_gestosci){
-        case 1: // graf pelny
+        case 0: // graf pelny
             ilosc_krawedzi = (ilosc_wierzcholkow*(ilosc_wierzcholkow-1)/2);
             break;
-        case 2: // gestosc grafu = 75%
+        case 1: // gestosc grafu = 75%
             ilosc_krawedzi = (ilosc_wierzcholkow*(ilosc_wierzcholkow-1)/2)*3/4;
             break;
-        case 3: // gestosc grafu 50%
+        case 2: // gestosc grafu 50%
             ilosc_krawedzi = (ilosc_wierzcholkow*(ilosc_wierzcholkow-1)/2)/2;
             break;
-        case 4: // gestosc grafu 25%
+        case 3: // gestosc grafu 25%
             ilosc_krawedzi = (ilosc_wierzcholkow*(ilosc_wierzcholkow-1)/2)/4;
             break;
         default: 
@@ -50,26 +47,26 @@ void losuj_graf(int ilosc_wierzcholkow, std::string nazwa, int typ_gestosci, int
     for(int i=0;i<ilosc_wierzcholkow;i++){
         for(int j=0;j<i;j++){
             switch(typ_gestosci){
-                case 1: // graf pelny
+                case 0: // graf pelny
                     plik << i << "\t"
                         << j << "\t"
                         << tab[i][j] << std::endl;
                     break;
-                case 2: // gestosc grafu 75%
+                case 1: // gestosc grafu 75%
                     if(licznik_gestosci %4 != 3){
                         plik << i << "\t"
                             << j << "\t"
                             << tab[i][j] << std::endl;
                     }
                     break;
-                case 3: // gestosc grafu 50%
+                case 2: // gestosc grafu 50%
                     if(licznik_gestosci %2 == 0){
                         plik << i << "\t"
                             << j << "\t"
                             << tab[i][j] << std::endl;
                     }
                     break;
-                case 4: // gestosc grafu 25%
+                case 3: // gestosc grafu 25%
                     if(licznik_gestosci %4 == 0){
                         plik << i << "\t"
                             << j << "\t"

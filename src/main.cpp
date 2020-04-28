@@ -6,138 +6,132 @@
 #include <fstream>
 #include <unistd.h>
 #include <string>
+#include <cstdio>
+#include <ctime>
+#include <chrono>
 
 
 int main(){
 
     std::string nazwa_pliku_losowanego;
-    nazwa_pliku_losowanego = "graf.txt";
-    losuj_graf(1000, nazwa_pliku_losowanego, 3);
+    //std::string nazwa_pliku_wyniku_lista;
+    //std::string nazwa_pliku_wyniku_macierz;
+    std::ofstream czasy_mac;
+    std::ofstream czasy_lista;
+    std::ofstream czasy_por_rep;
+    std::chrono::high_resolution_clock::time_point start, koniec;
+    double trwanie;
 
-    std::ifstream plik;
-    lista_sasiedztwa<int, int> graf;
-    plik.open("graf.txt");
-    if(plik.is_open() == false){
+    czasy_mac.open("wyniki/mac.csv");
+    if(czasy_mac.is_open() == false){
         std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
         return 1;
     }
-    plik >> graf;
-    plik.close();
-    wynik moj_wynik;
-    int wielkosc = graf.wierzcholki()->rozmiar();
-    moj_wynik.droga = new int[wielkosc];
-    moj_wynik.poprzednik = new int[wielkosc];
-
-    dijkstra_l(&graf, &moj_wynik);    
-
-    std::ofstream plik2;
-    plik2.open("wynik_dijkstry.txt");
-    if(plik2.is_open() == false){
+    czasy_lista.open("wyniki/lista.csv");
+    if(czasy_lista.is_open() == false){
         std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
         return 1;
     }
-    for(int i=0;i<wielkosc;i++){
-        plik2 << moj_wynik.droga[i] << "\t" << moj_wynik.poprzednik[i] << std::endl;
+    czasy_por_rep.open("wyniki/porownanie.csv");
+    if(czasy_por_rep.is_open() == false){
+        std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
+        return 1;
     }
 
+    int rozmiar[5] = {10, 30, 60, 100, 150};
+    for(int gestosc=0;gestosc<4;gestosc++){
+        czasy_mac << "typ gestosci;" << gestosc << ";" 
+            << "rozmiary;" << std::endl
+            << rozmiar[0] << ";" << rozmiar[1] << ";"
+            << rozmiar[2] << ";" << rozmiar[3] << ";"
+            << rozmiar[4] << ";" << std::endl;
+        czasy_lista << "typ gestosci;" << gestosc << ";" 
+            << "rozmiary;" << std::endl
+            << rozmiar[0] << ";" << rozmiar[1] << ";"
+            << rozmiar[2] << ";" << rozmiar[3] << ";"
+            << rozmiar[4] << ";" << std::endl;
+        czasy_por_rep << "typ gestosci;" << gestosc << ";" 
+            << "lista;macierz;"
+            << "rozmiary;" << std::endl
+            << rozmiar[0] << ";" << rozmiar[0] << ";"
+            << rozmiar[1] << ";" << rozmiar[1] << ";"
+            << rozmiar[2] << ";" << rozmiar[2] << ";"
+            << rozmiar[3] << ";" << rozmiar[3] << ";"
+            << rozmiar[4] << ";" << rozmiar[4] << ";" << std::endl;
+        for(int powtorzenie=0;powtorzenie<100;powtorzenie++){
+            for(int indeks_rozmiaru=0; indeks_rozmiaru<5; indeks_rozmiaru++){
+            
+                nazwa_pliku_losowanego = "grafy/graf_" 
+                    + std::to_string(rozmiar[indeks_rozmiaru]) 
+                    + "_" + std::to_string(gestosc)
+                    + "_powt" + std::to_string(powtorzenie);
+                losuj_graf(rozmiar[indeks_rozmiaru], nazwa_pliku_losowanego, gestosc);
+
+                std::ifstream plik;
+                lista_sasiedztwa<int, int> graf_l;
+                plik.open(nazwa_pliku_losowanego);
+                if(plik.is_open() == false){
+                    std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
+                    return 1;
+                }
+                plik >> graf_l;
+                plik.close();
+
+                wynik moj_wynik_l;
+                int wielkosc = graf_l.wierzcholki()->rozmiar();
+                moj_wynik_l.droga = new int[wielkosc];
+                moj_wynik_l.poprzednik = new int[wielkosc];
+                moj_wynik_l.wielkosc = wielkosc;
+
+                start = std::chrono::high_resolution_clock::now(); 
+                dijkstra_l(&graf_l, &moj_wynik_l); 
+                koniec = std::chrono::high_resolution_clock::now();
+                trwanie = std::chrono::duration<double, std::milli>(koniec-start).count();
+                czasy_lista << trwanie << ";";
+                czasy_por_rep << trwanie << ";";
+
+                wynik moj_wynik_m;
+                moj_wynik_m.droga = new int[wielkosc];
+                moj_wynik_m.poprzednik = new int[wielkosc];
+                moj_wynik_m.wielkosc = wielkosc;   
+
+                mac_sasiedztwa<int, int> graf_m;
+                plik.open(nazwa_pliku_losowanego);
+                if(plik.is_open() == false){
+                    std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
+                    return 1;
+                }
+                plik >> graf_m;
+                plik.close();
+
+                start = std::chrono::high_resolution_clock::now();
+                dijkstra_m(&graf_m, &moj_wynik_m); 
+                koniec = std::chrono::high_resolution_clock::now();
+                trwanie = std::chrono::duration<double, std::milli>(koniec-start).count();
+                czasy_mac << trwanie << ";";
+                czasy_por_rep << trwanie << ";";
 
 
-/* krawedz_l<int,int> kl1;
-krawedz_l<int,int> kl2;
-krawedz_m<int,int> km1;
-krawedz_m<int,int> km2;
-wierzcholek_l<int,int> wl1;
-wierzcholek_l<int,int> wl2;
-wierzcholek_m<int> wm1;
-wierzcholek_m<int> wm2;
-
-kl1.nazwa = 2;
-kl2.nazwa = 1;
-km1.nazwa = 2;
-km2.nazwa = 1;
-wl1.nazwa = 2;
-wl2.nazwa = 1;
-wm1.nazwa = 2;
-wm2.nazwa = 1;
-
-std::cout << "<" << (kl1<kl2) <<std::endl;
-std::cout << "<" << (km1<km2) <<std::endl;
-std::cout << "<" << (wl1<wl2) <<std::endl;
-std::cout << "<" << (wm1<wm2) <<std::endl;
-
-std::cout << ">" << (kl1>kl2) <<std::endl;
-std::cout << ">" << (km1>km2) <<std::endl;
-std::cout << ">" << (wl1>wl2) <<std::endl;
-std::cout << ">" << (wm1>wm2) <<std::endl;
-
-std::cout << "==" << (kl1==kl2) <<std::endl;
-std::cout << "==" << (km1==km2) <<std::endl;
-std::cout << "==" << (wl1==wl2) <<std::endl;
-std::cout << "==" << (wm1==wm2) <<std::endl;
-
-std::cout << "<=" << (kl1<=kl2) <<std::endl;
-std::cout << "<=" << (km1<=km2) <<std::endl;
-std::cout << "<=" << (wl1<=wl2) <<std::endl;
-std::cout << "<=" << (wm1<=wm2) <<std::endl;
-
-std::cout << ">=" << (kl1>=kl2) <<std::endl;
-std::cout << ">=" << (km1>=km2) <<std::endl;
-std::cout << ">=" << (wl1>=wl2) <<std::endl;
-std::cout << ">=" << (wm1>=wm2) <<std::endl; */
-
-/*     std::ifstream plik;
-
-    mac_sasiedztwa<int, int> graf;
-    mac_sasiedztwa<int, int> graf2;
-    for(int licznik=0;licznik<10;licznik++){    
-        plik.open("graf.txt");
-        plik >> graf;
-        plik.close();
-        std::cout<<"ilosc wierzcholkow" << graf.wierzcholki()->rozmiar() <<std::endl;
-        int ilosc_wierzcholkow = graf.wierzcholki()->rozmiar();
-        for(int i=0;i<ilosc_wierzcholkow;i++){
-            graf.usun_wierzcholek(graf.wierzcholki()->ostatni()->wartosc);
+                //std::ofstream plik2;
+                //plik2.open(nazwa_pliku_wyniku);
+                //if(plik2.is_open() == false){
+                //    std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
+                //    return 1;
+                //}
+                //plik2 << moj_wynik_l;
+            }
+            czasy_lista << std::endl;
+            czasy_mac << std::endl;
+            czasy_por_rep << std::endl;
         }
-        std::cout<<licznik<<std::endl;
+        czasy_lista << std::endl << std::endl;
+        czasy_mac << std::endl << std::endl;
+        czasy_por_rep << std::endl << std::endl;
     }
 
-    for(int licznik=0;licznik<10;licznik++){    
-        plik.open("graf1.txt");
-        plik >> graf2;
-        plik.close();
-        std::cout<<"ilosc wierzcholkow" << graf2.wierzcholki()->rozmiar() <<std::endl;
-        int ilosc_wierzcholkow = graf2.wierzcholki()->rozmiar();
-        for(int i=0;i<ilosc_wierzcholkow;i++){
-            graf2.usun_wierzcholek(graf2.wierzcholki()->ostatni()->wartosc);
-        }
-        std::cout<<licznik<<std::endl;
-    } */
-
-/*     mac_sasiedztwa<int, int> graf;
-    int ilosc_krawedzi = 0;
-    for(int i=0;i<1000;i++){
-        graf.dodaj_wierzcholek(i);
-    }
-    wierzcholek_m<int> *w1;
-    wierzcholek_m<int> *w2;
-
-    w1 = graf.wierzcholki()->pierwszy()->wartosc;
-    w2 = graf.wierzcholki()->ostatni()->wartosc;
-    for(int licznik=0;licznik<10;licznik++){
-        for(int i=0;i<1000;i++){
-            graf.dodaj_krawedz(w1, w2, i);
-        }
-
-        std::cout << "dodano krawedzie" <<std::endl;
-        sleep(2);
-        ilosc_krawedzi = graf.krawedzie()->rozmiar();
-        for(int i=0;i<ilosc_krawedzi;i++){
-            graf.usun_krawedz(graf.krawedzie()->ostatni()->wartosc);
-        }
-        std::cout << "usunieto krawedzie" << std::endl;
-        std::cout << "licznik: " << licznik <<std::endl;
-        sleep(2);
-    } */
+    czasy_lista.close();
+    czasy_mac.close();
+    czasy_por_rep.close();
 
  return 0;
 }

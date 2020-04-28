@@ -9,3 +9,7 @@ test_kopca
 test_list
 test_wektora
 *.txt
+./grafy/*
+./wyniki/*
+./grafy
+./wyniki
