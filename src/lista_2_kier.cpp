@@ -194,19 +194,19 @@ typ lista_2_kier<typ>::iterator::iteruj(unsigned int numer_elem){
             for(unsigned int i=0;i<numer_elem;i++){
                 if (wybrany->nastepny == nullptr){
                     std::cout<<"nie ma takiego elementu"<<std::endl;
-                    std::cout<<"zwrocono INT_MIN"<<std::endl;
-                    return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
+                    std::cout<<"zwrocono static_cast<typ>INT_MIN"<<std::endl;
+                    return static_cast<typ>INT_MIN; //w razie przekroczenia zakresu zwraca static_cast<typ>INT_MIN
                 }
                 wybrany = wybrany->nastepny;
             }
             this->aktualny_element = wybrany; // przypisze adres elementu do pola aktualny_element
             return *(wybrany->wartosc); // jesli lista_2_kier nie bedzie pusta zwroci wartosc elementu
         }
-        std::cout << "lista_2_kier pusta, zwrocono INT_MIN" << std::endl;
-        return INT_MIN; // w razie pustej listy zwraca INT_MIN
+        std::cout << "lista_2_kier pusta, zwrocono static_cast<typ>INT_MIN" << std::endl;
+        return static_cast<typ>INT_MIN; // w razie pustej listy zwraca static_cast<typ>INT_MIN
     }
-    std::cout << "nie przypisano listy, zwrocono INT_MIN" << std::endl;
-    return INT_MIN;
+    std::cout << "nie przypisano listy, zwrocono static_cast<typ>INT_MIN" << std::endl;
+    return static_cast<typ>INT_MIN;
 }
 
 template<typename typ>
@@ -216,8 +216,8 @@ typ lista_2_kier<typ>::iterator::iteruj(element_2_kier<typ> *wskazany_elem, unsi
     for(unsigned int i=0;i<numer_elem;i++){
         if (wybrany->nastepny == nullptr){
             std::cout<<"nie ma takiego elementu"<<std::endl;
-            std::cout<<"zwrocono INT_MIN"<<std::endl;
-            return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
+            std::cout<<"zwrocono static_cast<typ>INT_MIN"<<std::endl;
+            return static_cast<typ>INT_MIN; //w razie przekroczenia zakresu zwraca static_cast<typ>INT_MIN
         }
         wybrany = wybrany->nastepny;
     }
@@ -234,19 +234,19 @@ typ lista_2_kier<typ>::iterator::iteruj_wstecz(unsigned int numer_elem){
             for(unsigned int i=0;i<numer_elem;i++){
                 if (wybrany->poprzedni == nullptr){
                     std::cout<<"nie ma takiego elementu"<<std::endl;
-                    std::cout<<"zwrocono INT_MIN"<<std::endl;
-                    return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
+                    std::cout<<"zwrocono static_cast<typ>INT_MIN"<<std::endl;
+                    return static_cast<typ>INT_MIN; //w razie przekroczenia zakresu zwraca static_cast<typ>INT_MIN
                 }
                 wybrany = wybrany->poprzedni;
             }
             this->aktualny_element = wybrany; // przypisze adres elementu do pola aktualny_element
             return *(wybrany->wartosc); // jesli lista_2_kier nie bedzie pusta zwraca wartosc elementu
         }
-        std::cout << "lista_2_kier pusta, zwrocono INT_MIN" << std::endl;
-        return INT_MIN; // w razie pustej listy zwraca INT_MIN
+        std::cout << "lista_2_kier pusta, zwrocono static_cast<typ>INT_MIN" << std::endl;
+        return static_cast<typ>INT_MIN; // w razie pustej listy zwraca static_cast<typ>INT_MIN
     }
-    std::cout << "nie przypisano listy, zwrocono INT_MIN" << std::endl;
-    return INT_MIN;
+    std::cout << "nie przypisano listy, zwrocono static_cast<typ>INT_MIN" << std::endl;
+    return static_cast<typ>INT_MIN;
 }
 
 template<typename typ>
@@ -256,8 +256,8 @@ typ lista_2_kier<typ>::iterator::iteruj_wstecz(element_2_kier<typ> *wskazany_ele
     for(unsigned int i=0;i<numer_elem;i++){
         if (wybrany->poprzedni == nullptr){
             std::cout<<"nie ma takiego elementu"<<std::endl;
-            std::cout<<"zwrocono INT_MIN"<<std::endl;
-            return INT_MIN; //w razie przekroczenia zakresu zwraca INT_MIN
+            std::cout<<"zwrocono static_cast<typ>INT_MIN"<<std::endl;
+            return static_cast<typ>INT_MIN; //w razie przekroczenia zakresu zwraca static_cast<typ>INT_MIN
         }
         wybrany = wybrany->poprzedni;
     }
@@ -271,7 +271,7 @@ typ lista_2_kier<typ>::iterator::operator ++(){
         this->aktualny_element = this->aktualny_element->nastepny;
     }
     if(this->aktualny_element == nullptr){
-        return INT_MIN;
+        return static_cast<typ>INT_MIN;
     }
     return *(this->aktualny_element->wartosc);
 }
@@ -282,7 +282,7 @@ typ lista_2_kier<typ>::iterator::operator ++(int){
         this->aktualny_element = this->aktualny_element->nastepny;
     }
     if(this->aktualny_element == nullptr){
-        return INT_MIN;
+        return *(this->przypisana_lista->pierwszy()->wartosc); // zwraca pierwszy element na liscie
     }
     return *(this->aktualny_element->wartosc);
 }
@@ -293,7 +293,7 @@ typ lista_2_kier<typ>::iterator::operator --(){
         this->aktualny_element = this->aktualny_element->poprzedni;
     }
     if(this->aktualny_element == nullptr){
-        return INT_MIN;
+        return static_cast<typ>INT_MIN;
     }
     return *(this->aktualny_element->wartosc);
 }
@@ -304,7 +304,7 @@ typ lista_2_kier<typ>::iterator::operator --(int){
         this->aktualny_element = this->aktualny_element->poprzedni;
     }
     if(this->aktualny_element == nullptr){
-        return INT_MIN;
+        return static_cast<typ>INT_MIN;
     }
     return *(this->aktualny_element->wartosc);
 }

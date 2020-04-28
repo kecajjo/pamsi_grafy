@@ -1,11 +1,46 @@
 #include "inc/graf_m.hh"
 #include "inc/graf_l.hh"
+#include "inc/dijkstra.hh"
+#include "inc/losowanie_grafu.hh"
 #include <iostream>
 #include <fstream>
 #include <unistd.h>
+#include <string>
 
 
 int main(){
+
+    std::string nazwa_pliku_losowanego;
+    nazwa_pliku_losowanego = "graf.txt";
+    losuj_graf(1000, nazwa_pliku_losowanego, 3);
+
+    std::ifstream plik;
+    lista_sasiedztwa<int, int> graf;
+    plik.open("graf.txt");
+    if(plik.is_open() == false){
+        std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
+        return 1;
+    }
+    plik >> graf;
+    plik.close();
+    wynik moj_wynik;
+    int wielkosc = graf.wierzcholki()->rozmiar();
+    moj_wynik.droga = new int[wielkosc];
+    moj_wynik.poprzednik = new int[wielkosc];
+
+    dijkstra_l(&graf, &moj_wynik);    
+
+    std::ofstream plik2;
+    plik2.open("wynik_dijkstry.txt");
+    if(plik2.is_open() == false){
+        std::cout << "BLAD: plik sie nie otworzyl" << std::endl;
+        return 1;
+    }
+    for(int i=0;i<wielkosc;i++){
+        plik2 << moj_wynik.droga[i] << "\t" << moj_wynik.poprzednik[i] << std::endl;
+    }
+
+
 
 /* krawedz_l<int,int> kl1;
 krawedz_l<int,int> kl2;
