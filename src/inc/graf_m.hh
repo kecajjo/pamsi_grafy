@@ -13,6 +13,7 @@ class mac_sasiedztwa{
 
     public:
     mac_sasiedztwa();
+    ~mac_sasiedztwa();
     void dodaj_wierzcholek(wierzch nazwa); // dodaje wierzcholek o nazwie
     void dodaj_krawedz(wierzcholek_m<wierzch> *wierzch1, wierzcholek_m<wierzch> *wierzch2, kraw nazwa_kraw); // dodaj krawedz o nazwie
     void usun_wierzcholek(wierzcholek_m<wierzch> *do_usuniecia); // usuwa wierzcholek i przylegajace krawedzie

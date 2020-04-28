@@ -18,6 +18,5 @@ void dijkstra_l(lista_sasiedztwa<int, int> *graf, wynik *moj_wynik);
 void dijkstra_m(mac_sasiedztwa<int, int> *graf, wynik *moj_wynik);
 std::ostream& operator << (std::ostream &strm, wynik moj_wynik);
 
-#include "../dijkstra.cpp"
 
 #endif

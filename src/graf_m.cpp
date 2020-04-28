@@ -10,6 +10,13 @@ mac_sasiedztwa<kraw, wierzch>::mac_sasiedztwa(){
 }
 
 template <typename kraw, typename wierzch>
+mac_sasiedztwa<kraw, wierzch>::~mac_sasiedztwa(){
+    while(this->lista_wierzcholkow.czy_pusta() == false){
+        this->usun_wierzcholek(lista_wierzcholkow.pierwszy()->wartosc);
+    }
+}
+
+template <typename kraw, typename wierzch>
 void mac_sasiedztwa<kraw, wierzch>::dodaj_wierzcholek(wierzch nazwa){
     int wielkosc = this->lista_wierzcholkow.rozmiar();
     if(this->lista_wierzcholkow.czy_pusta() == false){ // jesli graf ma jakis wierzcholek

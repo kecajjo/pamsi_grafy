@@ -13,3 +13,6 @@ test_wektora
 ./wyniki/*
 ./grafy
 ./wyniki
+src/test_kopca
+src/test_list
+src/test_wektora

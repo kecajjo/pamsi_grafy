@@ -4,6 +4,13 @@
 #include "inc/graf_l.hh"
 
 template <typename kraw, typename wierzch>
+lista_sasiedztwa<kraw, wierzch>::~lista_sasiedztwa(){
+    while(this->lista_wierzcholkow.czy_pusta() == false){
+        this->usun_wierzcholek(lista_wierzcholkow.pierwszy()->wartosc);
+    }
+}
+
+template <typename kraw, typename wierzch>
 void lista_sasiedztwa<kraw, wierzch>::dodaj_wierzcholek(wierzch nazwa){
     wierzcholek_l<kraw, wierzch> nowy_wierzcholek(nazwa); // tworzy wierzcholek o nazwie
     this->lista_wierzcholkow.dodaj_na_koniec(nowy_wierzcholek); //dodaje wierzcholek na koniec listy

@@ -12,6 +12,7 @@ class lista_sasiedztwa{
     lista_2_kier< krawedz_l<kraw, wierzch> > lista_krawedzi; // lista krawedzi grafu 
 
     public:
+    ~lista_sasiedztwa();
     void dodaj_wierzcholek(wierzch nazwa); // dodaje wierzcholek o nazwie
     void dodaj_krawedz(wierzcholek_l<kraw, wierzch> *wierzch1, wierzcholek_l<kraw, wierzch> *wierzch2, kraw nazwa_kraw); // dodaj krawedz o nazwie
     void usun_wierzcholek(wierzcholek_l<kraw, wierzch> *do_usuniecia); // usuwa wierzcholek i przylegajace krawedzie

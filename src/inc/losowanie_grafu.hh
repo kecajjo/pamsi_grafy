@@ -6,5 +6,4 @@
 #include <string>
 
 void losuj_graf(int ilosc_wierzcholkow, std::string nazwa, int typ_gestosci = 0, int zakres_wag_kraw = 200);
-#include "../losowanie_grafu.cpp"
 #endif
