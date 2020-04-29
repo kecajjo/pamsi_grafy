@@ -14,8 +14,8 @@ struct wynik{
 };
 
 
-void dijkstra_l(lista_sasiedztwa<int, int> *graf, wynik *moj_wynik);
-void dijkstra_m(mac_sasiedztwa<int, int> *graf, wynik *moj_wynik);
+void dijkstra_l(lista_sasiedztwa<int, int> *graf, wynik *moj_wynik, int nr_wierzch_start = 0);
+void dijkstra_m(mac_sasiedztwa<int, int> *graf, wynik *moj_wynik, int nr_wierzch_start = 0);
 std::ostream& operator << (std::ostream &strm, wynik moj_wynik);
 
 

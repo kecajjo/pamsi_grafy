@@ -1,7 +1,11 @@
 #include "inc/losowanie_grafu.hh"
+#include <random>
+#include <chrono>
 
 void losuj_graf(int ilosc_wierzcholkow, std::string nazwa, int typ_gestosci, int zakres_wag_kraw){
-    std::srand(time(NULL));
+    
+    std::mt19937 generator(std::chrono::steady_clock::now().time_since_epoch().count()); // wieksza losowosc nawet, gdy funkcja zostanie uzyta kilka razy w krotkim odstepie czasu
+    std::uniform_int_distribution<int> zakres(1,zakres_wag_kraw);
 
     std::ofstream plik;
     plik.open(nazwa);
@@ -36,7 +40,7 @@ void losuj_graf(int ilosc_wierzcholkow, std::string nazwa, int typ_gestosci, int
     
     for(int i=0;i<ilosc_wierzcholkow;i++){
         for(int j=0;j<i;j++){
-            tab[i][j] = rand()%zakres_wag_kraw;
+            tab[i][j] = zakres(generator);
         }
     }
     plik << ilosc_krawedzi << "\t"

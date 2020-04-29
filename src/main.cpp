@@ -38,8 +38,9 @@ int main(){
         return 1;
     }
 
-    int rozmiar[5] = {10, 30, 60, 100, 150};
+    int rozmiar[5] = {10, 50, 100, 500, 1000};
     for(int gestosc=0;gestosc<4;gestosc++){
+std::cout << "typ gestosci: " << gestosc << std::endl;
         czasy_mac << "typ gestosci;" << gestosc << ";" 
             << "rozmiary;" << std::endl
             << rozmiar[0] << ";" << rozmiar[1] << ";"
@@ -65,7 +66,7 @@ int main(){
                     + std::to_string(rozmiar[indeks_rozmiaru]) 
                     + "_" + std::to_string(gestosc)
                     + "_powt" + std::to_string(powtorzenie);
-                losuj_graf(rozmiar[indeks_rozmiaru], nazwa_pliku_losowanego, gestosc);
+                //losuj_graf(rozmiar[indeks_rozmiaru], nazwa_pliku_losowanego, gestosc);
 
                 std::ifstream plik;
                 lista_sasiedztwa<int, int> graf_l;

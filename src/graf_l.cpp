@@ -115,7 +115,8 @@ std::ostream& operator << (std::ostream &strm, lista_sasiedztwa<kraw, wierzch> g
     typename lista_2_kier< krawedz_l<kraw, wierzch> >::iterator it = graf.krawedzie();
     krawedz_l<kraw, wierzch> krawedz;
 
-    for(int i=0;i<graf.krawedzie()->rozmiar();i++){
+    int ilosc_krawedzi = graf.krawedzie()->rozmiar();
+    for(int i=0;i<ilosc_krawedzi;i++){
         krawedz = *(it.wartosc());
         strm << krawedz.wierzcholki[0]->nazwa << "\t"
             << krawedz.wierzcholki[1]->nazwa << "\t"
@@ -162,7 +163,8 @@ std::istream& operator >> (std::istream &strm, lista_sasiedztwa<kraw, wierzch> &
             wsk_w1 = it.przeszukaj(w1)->wartosc; //wskazuje na juz istniejacy wierzcholek o podanej nazwie
         } else{ // jesli wierzcholek nie istnieje, dodaje go
             graf.dodaj_wierzcholek(nazwa_w1);
-            wsk_w1 = it.wartosc(graf.wierzcholki()->rozmiar()-1); // wskaznik na dodany wierzcholek
+            it.koniec(); // it wskazuje na dodany wierzcholek
+            wsk_w1 = it.wartosc(); // zwraca wskaznik na dodany
         }
         strm >> nazwa_w2;
         w2.nazwa = nazwa_w2;
@@ -170,7 +172,8 @@ std::istream& operator >> (std::istream &strm, lista_sasiedztwa<kraw, wierzch> &
             wsk_w2 = it.przeszukaj(w2)->wartosc; //wskazuje na juz istniejacy wierzcholek o podanej nazwie
         } else{ // jesli wierzcholek nie istnieje, dodaje go
             graf.dodaj_wierzcholek(nazwa_w2);
-            wsk_w2 = it.wartosc(graf.wierzcholki()->rozmiar()-1); // wskaznik na dodany wierzcholek
+            it.koniec(); // it wskazuje na dodany wierzcholek
+            wsk_w1 = it.wartosc(); // zwraca wskaznik na dodany wierzcholek
         }
         strm >> nazwa_k;
         graf.dodaj_krawedz(wsk_w1, wsk_w2, nazwa_k);

@@ -2,6 +2,8 @@
 #include "inc/graf_m.hh"
 #include "inc/dijkstra.hh"
 #include "inc/losowanie_grafu.hh"
+#include <fstream>
+#include <iostream>
 
 int main(){
 
@@ -77,6 +79,31 @@ int main(){
     std::cout << "ilosc krawedzi przed usunieciem wierzcholka o znacznej ich liczbie: " << macierz.krawedzie()->rozmiar() << std::endl;
     macierz.usun_wierzcholek(w1_m);
     std::cout << "ilosc krawedzi po usunieciu wierzcholka o znacznej ich liczbie: " << macierz.krawedzie()->rozmiar() << std::endl;
+
+    std::cout << "losowanie grafu pelnego o 10 wierzcholkach do pliku driver1.txt" << std::endl;
+    std::cout << "wynik dzialania algorytmu dijkstry zostanie zapisany w pliku wynik_mac.txt" << std::endl;
+    losuj_graf(10, "driver1.txt", 0, 100);
+    mac_sasiedztwa<int, int> mac_dij;
+    wynik mac_wyn;
+    std::ifstream plik_odcz1;
+    std::ofstream plik_zap1;
+    plik_odcz1.open("driver1.txt");
+    plik_zap1.open("wynik_mac.txt");
+    if(plik_odcz1.is_open() == false || plik_zap1.is_open() == false){
+        return 1;
+    }
+    plik_odcz1 >> mac_dij;
+    int wielkosc = mac_dij.wierzcholki()->rozmiar();
+    mac_wyn.droga = new int[wielkosc];
+    mac_wyn.poprzednik = new int[wielkosc];
+    mac_wyn.wielkosc = wielkosc;
+    dijkstra_m(&mac_dij, &mac_wyn);
+    plik_zap1 << mac_wyn;
+    plik_odcz1.close();
+    plik_zap1.close();
+    std::cout << "wynik w formacie indeks, droga, nastepnie po spacjach poprzednicy" 
+        << std::endl << "(cofamy sie do wierzcholka poczatkowego):" << std::endl;
+    std::cout << mac_wyn << std::endl;
 
     //std::cout<<macierz;
 
@@ -155,5 +182,29 @@ int main(){
     sasiad.usun_wierzcholek(w1);
     std::cout << "ilosc krawedzi po usunieciu wierzcholka o znacznej ich liczbie: " << sasiad.krawedzie()->rozmiar() << std::endl;
 
+    std::cout << "losowanie grafu pelnego o 10 wierzcholkach do pliku driver2.txt" << std::endl;
+    std::cout << "wynik dzialania algorytmu dijkstry zostanie zapisany w pliku wynik_lst.txt" << std::endl;
+    losuj_graf(10, "driver2.txt", 0, 100);
+    lista_sasiedztwa<int, int> lst_dij;
+    wynik lst_wyn;
+    std::ifstream plik_odcz2;
+    std::ofstream plik_zap2;
+    plik_odcz2.open("driver1.txt");
+    plik_zap2.open("wynik_lst.txt");
+    if(plik_odcz2.is_open() == false || plik_zap2.is_open() == false){
+        return 1;
+    }
+    plik_odcz2 >> lst_dij;
+    wielkosc = lst_dij.wierzcholki()->rozmiar();
+    lst_wyn.droga = new int[wielkosc];
+    lst_wyn.poprzednik = new int[wielkosc];
+    lst_wyn.wielkosc = wielkosc;
+    dijkstra_l(&lst_dij, &lst_wyn);
+    plik_zap2 << lst_wyn;
+    plik_odcz2.close();
+    plik_zap2.close();
+    std::cout << "wynik w formacie indeks, droga, nastepnie po spacjach poprzednicy" 
+        << std::endl << "(cofamy sie do wierzcholka poczatkowego):" << std::endl;
+    std::cout << lst_wyn <<std::endl;
     return 0;
 }
