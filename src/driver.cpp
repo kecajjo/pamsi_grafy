@@ -189,7 +189,7 @@ int main(){
     wynik lst_wyn;
     std::ifstream plik_odcz2;
     std::ofstream plik_zap2;
-    plik_odcz2.open("driver1.txt");
+    plik_odcz2.open("driver2.txt");
     plik_zap2.open("wynik_lst.txt");
     if(plik_odcz2.is_open() == false || plik_zap2.is_open() == false){
         return 1;

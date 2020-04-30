@@ -38,9 +38,6 @@ obj/dijkstra.o: src/dijkstra.cpp src/inc/dijkstra.hh src/inc/graf_l.hh src/inc/g
 obj/driver.o: src/driver.cpp src/inc/dijkstra.hh src/inc/graf_m.hh src/inc/graf_l.hh src/inc/losowanie_grafu.hh
 	$(CXX) ${CXXFLAGS} -o obj/driver.o src/driver.cpp
 
-obj/test_dij.o: src/test_dij.cpp src/inc/dijkstra.hh src/inc/graf_m.hh src/inc/graf_l.hh src/inc/losowanie_grafu.hh
-	$(CXX) ${CXXFLAGS} -o obj/test_dij.o src/test_dij.cpp
-
 clean:
 	rm -f obj/*.o szukanie_sciezki driver test_dij
 
@@ -48,6 +45,3 @@ driver: obj obj/driver.o $(OBJ)
 	g++ -Wall -Werror -Wextra -pedantic -std=c++17 -o driver obj/driver.o $(OBJ)
 	./driver
 	
-test: obj obj/test_dij.o $(OBJ)
-	g++ -Wall -Werror -Wextra -pedantic -std=c++17 -o test_dij obj/test_dij.o $(OBJ)
-	./test_dij
